@@ -130,7 +130,7 @@ for o in obory:
             p['katedra'] = uid
         else:
             uid = katedry[p['katedra']]
-            p[id] = uid
+            p['katedra'] = uid
 
 out = 'INSERT INTO tblDruhyStudia VALUES '
 for d in druhy:
@@ -145,7 +145,7 @@ for o in obory:
     out += '({}, UNHEX("{}"), {}, {}, {}, {}, {}),\n'.format('UNHEX("' + str(o['id']).replace('-', '') + '")',
                                                              str(o['druh']).replace('-', ''),
                                                              '"' + o['kod'] + '"',
-                                                             '"' + o['obor'] + '"',
+                                                             '"' + o['obor'].replace('-', '') + '"',
                                                              '"' + o['specifikace'] + '"' if o[
                                                                  'specifikace'] else 'NULL',
                                                              o['platnostOd'] if o['platnostOd'] else 'NULL',
@@ -156,10 +156,10 @@ out += 'INSERT INTO tblPredmety VALUES '
 for pr in predmety:
     p = predmety[pr]['predmet']
     out += '({}, {}, {}, {}, {}, {}, {}, {}, {}),\n'.format('UNHEX("' + str(p['id']).replace('-', '') + '")',
-                                                            '"' + p['kod'] + '"',
-                                                            '"' + p['nazev'] + '"',
-                                                            p['kredity'],
                                                             'UNHEX("' + str(p['katedra']).replace('-', '') + '")',
+                                                            '"' + p['kod'] + '"',
+                                                            '"' + p['nazev'].replace('\n', '') + '"',
+                                                            p['kredity'],
                                                             1 if p['ukZ'] else 0,
                                                             1 if p['ukKZ'] else 0,
                                                             1 if p['ukZK'] else 0,
@@ -168,7 +168,7 @@ out = out[:-2] + ';\n'
 
 out += "INSERT INTO tblKatedry VALUES "
 for k in katedry:
-    out += '({}, {}),\n'.format('UNHEX("' + str(katedry[k]).replace('-', '') + '"), ',
+    out += '({}, "{}"),\n'.format('UNHEX("' + str(katedry[k]).replace('-', '') + '")',
                                 k)
 out = out[:-2] + ';\n'
 
