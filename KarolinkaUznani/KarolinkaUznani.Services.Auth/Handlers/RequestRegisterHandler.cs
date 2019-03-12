@@ -38,7 +38,7 @@ namespace KarolinkaUznani.Services.Auth.Handlers
                 var token = await _authService.RegisterAsync(request.Code, request.Email, request.Password, request.Name, request.Surname, request.Phone);
 
                 response.Success = true;
-                response.Response = token.Token;
+                response.Token = token.Token;
                 response.Expires = token.Expires;
 
                 _logger.LogInformation($"Registration: '{request.Email}' - success");
@@ -46,7 +46,7 @@ namespace KarolinkaUznani.Services.Auth.Handlers
             catch (KarolinkaException ex)
             {
                 response.Success = false;
-                response.Response = ex.Code;
+                response.Message = ex.Message;
 
                 _logger.LogInformation($"Registration: '{request.Email}' - failed - {ex.Code}");
             }

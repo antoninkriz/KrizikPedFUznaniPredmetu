@@ -11,7 +11,7 @@ namespace KarolinkaUznani.Common.Responses.Data
         /// <summary>
         /// Was the request successful?
         /// </summary>
-        public bool Success { get; set; }
+        public bool Success { get; set; }    
         
         /// <summary>
         /// List of DruhStudia that match the requests parameters
@@ -30,13 +30,19 @@ namespace KarolinkaUznani.Common.Responses.Data
         public readonly Guid Id;
 
         /// <summary>
+        /// Code of the DruhStudia
+        /// </summary>
+        public readonly string Code;
+        
+        /// <summary>
         /// Name of the DruhStudia
         /// </summary>
         public readonly string Name;
 
-        public DruhStudia(Guid id, string name)
+        public DruhStudia(Guid id, string code, string name)
         {
             Id = id;
+            Code = code;
             Name = name;
         }
     }

@@ -37,9 +37,11 @@ namespace KarolinkaUznani.Services.Data.Domain.Repositories.MySql
                 {
                     while (await reader.ReadAsync())
                     {
+                        var i = 0;
+                        
                         collection.Add(new KatedraDbModel(
-                            id: new Guid(await reader.GetFieldValueAsync<byte[]>(0)),
-                            name: await reader.GetFieldValueAsync<string>(1)
+                            id: new Guid(await reader.GetFieldValueAsync<byte[]>(i++)),
+                            name: await reader.GetFieldValueAsync<string>(i)
                         ));
                     }
                 }
@@ -71,9 +73,12 @@ namespace KarolinkaUznani.Services.Data.Domain.Repositories.MySql
                 {
                     while (await reader.ReadAsync())
                     {
+                        var i = 0;
+                        
                         collection.Add(new DruhStudiaDbModel(
-                            id: new Guid(await reader.GetFieldValueAsync<byte[]>(0)),
-                            name: await reader.GetFieldValueAsync<string>(1)
+                            id: new Guid(await reader.GetFieldValueAsync<byte[]>(i++)),
+                            code: await reader.GetFieldValueAsync<string>(i++),
+                            name: await reader.GetFieldValueAsync<string>(i)
                         ));
                     }
                 }
@@ -107,10 +112,15 @@ namespace KarolinkaUznani.Services.Data.Domain.Repositories.MySql
                 {
                     while (await reader.ReadAsync())
                     {
+                        var i = 0;
+                        
                         collection.Add(new OborDbModel(
-                            id: new Guid(await reader.GetFieldValueAsync<byte[]>(0)),
-                            code: await reader.GetFieldValueAsync<string>(1),
-                            name: await reader.GetFieldValueAsync<string>(2)
+                            id: new Guid(await reader.GetFieldValueAsync<byte[]>(i++)),
+                            code: await reader.GetFieldValueAsync<string>(i++),
+                            name: await reader.GetFieldValueAsync<string>(i++),
+                            specification: await  reader.GetFieldValueAsync<string>(i++),
+                            yearFrom: await reader.GetFieldValueAsync<int?>(i++),
+                            yearTo: await reader.GetFieldValueAsync<int?>(i)
                         ));
                     }
                 }
@@ -142,11 +152,14 @@ namespace KarolinkaUznani.Services.Data.Domain.Repositories.MySql
                 {
                     while (await reader.ReadAsync())
                     {
+                        var i = 0;
+                        
                         collection.Add(new PredmetDbModel(
-                            id: new Guid(await reader.GetFieldValueAsync<byte[]>(0)),
-                            code: await reader.GetFieldValueAsync<string>(1),
-                            name: await reader.GetFieldValueAsync<string>(2),
-                            zkouska: await reader.GetFieldValueAsync<string>(3)
+                            id: new Guid(await reader.GetFieldValueAsync<byte[]>(i++)),
+                            code: await reader.GetFieldValueAsync<string>(i++),
+                            name: await reader.GetFieldValueAsync<string>(i++),
+                            zkouska: await reader.GetFieldValueAsync<string>(i++),
+                            kredity: await reader.GetFieldValueAsync<int>(i)
                         ));
                     }
                 }

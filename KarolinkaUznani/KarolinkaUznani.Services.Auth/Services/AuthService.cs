@@ -76,9 +76,9 @@ namespace KarolinkaUznani.Services.Auth.Services
             if (string.IsNullOrWhiteSpace(passw))
                 throw new KarolinkaException(KarolinkaException.ExceptionType.EmptyPassword);
 
-            if (email.IsValidEmail())
+            if (!email.IsValidEmail())
                 throw new KarolinkaException(KarolinkaException.ExceptionType.NotEmail);
-            if (passw.IsValidPassword())
+            if (!passw.IsValidPassword())
                 throw new KarolinkaException(KarolinkaException.ExceptionType.NotPassword);
 
             var user = await _userRepository.GetAsync(email);

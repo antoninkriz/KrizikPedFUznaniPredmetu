@@ -12,18 +12,19 @@ namespace KarolinkaUznani.Common.Database
     {
         public static void AddDatabase(this IServiceCollection services, IConfiguration databaseConfiguration, Dictionary<string, List<(Type, Type)>> repositories)
         {
-            var databaseToUse = databaseConfiguration.GetSection("database").GetValue<string>("use");
+            var dbConfig = databaseConfiguration.GetSection("database");
+            var databaseToUse = dbConfig.GetValue<string>("use");
 
             if (databaseToUse == null || !repositories.ContainsKey(databaseToUse))
-                throw new NotImplementedException($"Repositories for type '{databaseToUse ?? "null"}' are not implemented");
+                throw new Exception($"Repositories for database type '{databaseToUse ?? "null"}' are not implemented");
             
             switch (databaseToUse)
             {
                 case "mysql":
-                    services.AddMySqlDb(databaseConfiguration.GetSection("types").GetSection(databaseToUse));
+                    services.AddMySqlDb(dbConfig.GetSection("types").GetSection(databaseToUse));
                     break;
                 default:
-                    throw new NotImplementedException($"Database type '{databaseToUse ?? "null"}' is not implemented. Check appconfig.json");
+                    throw new Exception($"Database type '{databaseToUse ?? "null"}' is not implemented. Check appconfig.json");
             }
             
             repositories[databaseToUse].ForEach(x => services.AddScoped(x.Item1, x.Item2));

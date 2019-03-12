@@ -92,7 +92,7 @@ namespace KarolinkaUznani.Common.Exceptions
                 {ExceptionType.EmptyEmail, new ExceptionData("emptyEmail", "Email nesmí být prázdný")},
                 {ExceptionType.EmptyName, new ExceptionData("emptyName", "Jméno nesmí být prázdné")},
                 {ExceptionType.EmptyPassword, new ExceptionData("emptyPassword", "Heslp nesmí být prázdné")},
-                {ExceptionType.EmptyEmail, new ExceptionData("emailAlreadyUsed", "Email je již používán")},
+                {ExceptionType.EmailAlreadyUsed, new ExceptionData("emailAlreadyUsed", "Email je již používán")},
                 {ExceptionType.InvalidCredentials, new ExceptionData("invalidCredentials", "Neplatné přihlašovací údaje")},
                 {ExceptionType.NotEmail, new ExceptionData("notEmail", "Email není platný")},
                 {ExceptionType.NotPassword, new ExceptionData("notPassowrd", "Heslo neodpovídá požadavkům")},

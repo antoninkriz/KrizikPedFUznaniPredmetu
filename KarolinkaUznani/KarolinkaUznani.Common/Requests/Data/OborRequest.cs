@@ -5,7 +5,7 @@ namespace KarolinkaUznani.Common.Requests.Data
     /// <summary>
     /// Object containing data related to search queries
     /// </summary>
-    public abstract class OborRequest : IRequest
+    public class OborRequest : IRequest
     {
         /// <summary>
         /// Text that is the user searching for

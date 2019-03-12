@@ -54,7 +54,7 @@ namespace KarolinkaUznani.Services.Data.Services
             
             var result = await _dataRepository.GetDruhStudiaAsync(katedraId, searchText);
 
-            return result.Select(x => new DruhStudia(x.Id, x.Name)).ToList();
+            return result.Select(x => new DruhStudia(x.Id, x.Code, x.Name)).ToList();
         }
 
         /// <inheritdoc />
@@ -76,7 +76,7 @@ namespace KarolinkaUznani.Services.Data.Services
 
             var result = await _dataRepository.GetOborAsync(katedraId, druhStudiaId, searchText);
 
-            return result.Select(x => new Obor(x.Id, x.Name, x.Code)).ToList();
+            return result.Select(x => new Obor(x.Id, x.Name, x.Code, x.Specification, x.YearFrom, x.YearTo)).ToList();
         }
 
         /// <inheritdoc />
@@ -96,7 +96,7 @@ namespace KarolinkaUznani.Services.Data.Services
             
             var result = await _dataRepository.GetPredmetAsync(oborId, searchText);
 
-            return result.Select(x => new Predmet(x.Id, x.Code, x.Name, x.Zkouska)).ToList();
+            return result.Select(x => new Predmet(x.Id, x.Code, x.Name, x.Zkouska, x.Kredity)).ToList();
         }
     }
 }

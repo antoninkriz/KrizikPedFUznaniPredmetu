@@ -5,7 +5,7 @@ namespace KarolinkaUznani.Common.Requests.Data
     /// <summary>
     /// Object containing data related to search queries
     /// </summary>
-    public abstract class DruhStudiaRequest : IRequest
+    public class DruhStudiaRequest : IRequest
     {
         /// <summary>
         /// Text that is the user searching for

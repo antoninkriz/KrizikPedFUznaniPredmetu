@@ -3,7 +3,7 @@ namespace KarolinkaUznani.Common.Requests.Auth
     /// <summary>
     /// Object containing data related to registering a new user
     /// </summary>
-    public abstract class RegisterRequest : IRequest
+    public class RegisterRequest : IRequest
     {
         /// <summary>
         /// Users university code id

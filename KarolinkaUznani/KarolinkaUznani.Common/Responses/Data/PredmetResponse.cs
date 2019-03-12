@@ -44,12 +44,18 @@ namespace KarolinkaUznani.Common.Responses.Data
         /// </summary>
         public readonly string Zkouska;
 
-        public Predmet(Guid id, string code, string name, string zkouska)
+        /// <summary>
+        /// Amounts of Kredity student can get for a Predmet
+        /// </summary>
+        public readonly int Kredity;
+
+        public Predmet(Guid id, string code, string name, string zkouska, int kredity)
         {
             Id = id;
             Code = code;
             Name = name;
             Zkouska = zkouska;
+            Kredity = kredity;
         }
     }
 }
