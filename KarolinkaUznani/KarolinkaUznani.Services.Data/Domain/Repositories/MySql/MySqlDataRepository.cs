@@ -24,9 +24,9 @@ namespace KarolinkaUznani.Services.Data.Domain.Repositories.MySql
         /// <returns></returns>
         public async Task<List<KatedraDbModel>> GetKatedraAsync(string searchText)
         {
-            using (var command = Command("sp_KatedraBySearch", new List<Param>
+            using (var command = Command("sp_SearchKatedry", new List<Param>
             {
-                new Param("p_searchText", MySqlDbType.VarChar, 255, searchText)
+                new Param("p_search", MySqlDbType.VarChar, 64, searchText)
             }))
             {
                 await OpenConnectionAsync();
@@ -59,10 +59,10 @@ namespace KarolinkaUznani.Services.Data.Domain.Repositories.MySql
         /// <returns></returns>
         public async Task<List<DruhStudiaDbModel>> GetDruhStudiaAsync(Guid katedraId, string searchText)
         {
-            using (var command = Command("sp_DruhStudiaBySearch", new List<Param>
+            using (var command = Command("sp_SearchKatedry", new List<Param>
             {
-                new Param("p_katedra_id", MySqlDbType.Binary, 16, katedraId.ToByteArray()),
-                new Param("p_searchText", MySqlDbType.VarChar, 255, searchText)
+                new Param("p_search", MySqlDbType.VarChar, 64, searchText),
+                new Param("p_katedraId", MySqlDbType.Binary, 16, katedraId.ToByteArray())
             }))
             {
                 await OpenConnectionAsync();
@@ -97,11 +97,11 @@ namespace KarolinkaUznani.Services.Data.Domain.Repositories.MySql
         /// <returns></returns>
         public async Task<List<OborDbModel>> GetOborAsync(Guid katedraId, Guid druhStudiaId, string searchText)
         {
-            using (var command = Command("sp_OborBySearch", new List<Param>
+            using (var command = Command("sp_SearchObory", new List<Param>
             {
-                new Param("p_katedra_id", MySqlDbType.Binary, 16, katedraId.ToByteArray()),
-                new Param("p_druhStudia_id", MySqlDbType.Binary, 16, druhStudiaId.ToByteArray()),
-                new Param("p_searchText", MySqlDbType.VarChar, 255, searchText)
+                new Param("p_search", MySqlDbType.VarChar, 64, searchText),
+                new Param("p_katedraId", MySqlDbType.Binary, 16, katedraId.ToByteArray()),
+                new Param("p_druhStudiaId", MySqlDbType.Binary, 16, druhStudiaId.ToByteArray())
             }))
             {
                 await OpenConnectionAsync();
@@ -120,7 +120,8 @@ namespace KarolinkaUznani.Services.Data.Domain.Repositories.MySql
                             name: await reader.GetFieldValueAsync<string>(i++),
                             specification: await  reader.GetFieldValueAsync<string>(i++),
                             yearFrom: await reader.GetFieldValueAsync<int?>(i++),
-                            yearTo: await reader.GetFieldValueAsync<int?>(i)
+                            yearTo: await reader.GetFieldValueAsync<int?>(i++),
+                            studyForm: await reader.GetFieldValueAsync<bool>(i)
                         ));
                     }
                 }
@@ -140,8 +141,8 @@ namespace KarolinkaUznani.Services.Data.Domain.Repositories.MySql
         {
             using (var command = Command("sp_PredmetBySearch", new List<Param>
             {
-                new Param("p_obor_id", MySqlDbType.Binary, 16, oborId.ToByteArray()),
-                new Param("p_searchText", MySqlDbType.VarChar, 255, searchText)
+                new Param("p_search", MySqlDbType.VarChar, 64, searchText),
+                new Param("p_oborId", MySqlDbType.Binary, 16, oborId.ToByteArray()),
             }))
             {
                 await OpenConnectionAsync();
@@ -158,14 +159,43 @@ namespace KarolinkaUznani.Services.Data.Domain.Repositories.MySql
                             id: new Guid(await reader.GetFieldValueAsync<byte[]>(i++)),
                             code: await reader.GetFieldValueAsync<string>(i++),
                             name: await reader.GetFieldValueAsync<string>(i++),
-                            zkouska: await reader.GetFieldValueAsync<string>(i++),
-                            kredity: await reader.GetFieldValueAsync<int>(i)
+                            kredity: await reader.GetFieldValueAsync<int>(i++),
+                            zkouska: GetZkouska(
+                                await reader.GetFieldValueAsync<bool>(i++),
+                                await reader.GetFieldValueAsync<bool>(i++),
+                                await reader.GetFieldValueAsync<bool>(i++),
+                                await reader.GetFieldValueAsync<bool>(i)
+                                )
                         ));
                     }
                 }
 
                 return collection;
             }
+        }
+
+        /// <summary>
+        /// Builds string according to types of zkouska for given Predmet
+        /// </summary>
+        /// <param name="ukZ">Zapocet</param>
+        /// <param name="ukKz">Klasifikovany zapocet</param>
+        /// <param name="ukZk">Zkouska</param>
+        /// <param name="ukKlp">Klauzurni prace</param>
+        /// <returns></returns>
+        private static string GetZkouska(bool ukZ, bool ukKz, bool ukZk, bool ukKlp)
+        {
+            var uk = new List<string>();
+            
+            if (ukZ)
+                uk.Add("Z");
+            if (ukKz)
+                uk.Add("Kz");
+            if (ukZk)
+                uk.Add("Zk");
+            if (ukKlp)
+                uk.Add("Klp");
+
+            return string.Join(" + ", uk);
         }
     }
 }

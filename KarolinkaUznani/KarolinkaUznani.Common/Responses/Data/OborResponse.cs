@@ -54,8 +54,13 @@ namespace KarolinkaUznani.Common.Responses.Data
         /// </summary>
         public readonly int? YearTo;
 
+        /// <summary>
+        /// Form of studium - True = KS / False = PS
+        /// </summary>
+        public readonly bool StudyForm;
 
-        public Obor(Guid id, string code, string name, string specification, int? yearFrom, int? yearTo)
+
+        public Obor(Guid id, string code, string name, string specification, int? yearFrom, int? yearTo, bool studyForm)
         {
             Id = id;
             Code = code;
@@ -63,6 +68,7 @@ namespace KarolinkaUznani.Common.Responses.Data
             Specification = specification;
             YearFrom = yearFrom;
             YearTo = yearTo;
+            StudyForm = studyForm;
         }
     }
 }

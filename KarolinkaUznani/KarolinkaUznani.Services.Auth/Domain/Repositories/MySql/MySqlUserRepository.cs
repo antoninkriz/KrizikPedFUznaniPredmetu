@@ -24,9 +24,9 @@ namespace KarolinkaUznani.Services.Auth.Domain.Repositories.MySql
         /// <returns>User or null</returns>
         public async Task<UserDbModel> GetAsync(Guid id)
         {
-            using (var command = Command("sp_UserGetByGuid", new List<Param>
+            using (var command = Command("sp_UserByGuid", new List<Param>
             {
-                new Param("p_user_guid", MySqlDbType.Binary, 16, id.ToByteArray())
+                new Param("p_userId", MySqlDbType.Binary, 16, id.ToByteArray())
             }))
             {
                 await OpenConnectionAsync();
@@ -63,9 +63,9 @@ namespace KarolinkaUznani.Services.Auth.Domain.Repositories.MySql
         /// <returns>User or null</returns>
         public async Task<UserDbModel> GetAsync(string email)
         {
-            using (var command = Command("sp_UserGetByEmail", new List<Param>
+            using (var command = Command("sp_UserByEmail", new List<Param>
             {
-                new Param("p_user_email", MySqlDbType.VarChar, 255, email)
+                new Param("p_userEmail", MySqlDbType.VarChar, 255, email)
             }))
             {
                 await OpenConnectionAsync();
@@ -104,14 +104,15 @@ namespace KarolinkaUznani.Services.Auth.Domain.Repositories.MySql
         {
             using (var command = Command("sp_UserAdd", new List<Param>
             {
-                new Param("p_user_id", MySqlDbType.Binary, 16, user.Id.ToByteArray()),
-                new Param("p_user_email", MySqlDbType.VarChar, 255, user.Email),
-                new Param("p_user_surname", MySqlDbType.VarChar, 255, user.Surname),
-                new Param("p_user_phone", MySqlDbType.VarChar, 16, user.Phone),
-                new Param("p_user_name", MySqlDbType.VarChar, 255, user.Name),
-                new Param("p_user_password", MySqlDbType.Binary, 64, user.Password),
-                new Param("p_user_salt", MySqlDbType.Binary, 40, user.Salt),
-                new Param("p_user_createdAt", MySqlDbType.DateTime, null, user.CreatedAt)
+                new Param("p_userId", MySqlDbType.Binary, 16, user.Id.ToByteArray()),
+                new Param("p_userCode", MySqlDbType.Int32, null, user.Code),
+                new Param("p_userEmail", MySqlDbType.VarChar, 255, user.Email),
+                new Param("p_userName", MySqlDbType.VarChar, 255, user.Name),
+                new Param("p_userSurname", MySqlDbType.VarChar, 255, user.Surname),
+                new Param("p_userPhone", MySqlDbType.VarChar, 16, user.Phone),
+                new Param("p_userPassword", MySqlDbType.Binary, 64, user.Password),
+                new Param("p_userSalt", MySqlDbType.Binary, 40, user.Salt),
+                new Param("p_userCreatedAt", MySqlDbType.DateTime, null, user.CreatedAt)
             }))
             {
                 await OpenConnectionAsync();

@@ -23,16 +23,16 @@ namespace KarolinkaUznani.Services.Data.Domain.Models
         public readonly string Name;
 
         /// <summary>
-        /// Zkouska of the Predmet
-        /// </summary>
-        public readonly string Zkouska;
-
-        /// <summary>
         /// Amount of Kredity student can get for a Predmet
         /// </summary>
         public readonly int Kredity;
 
-        public PredmetDbModel(Guid id, string code, string name, string zkouska, int kredity)
+        /// <summary>
+        /// Zkouska of the Predmet
+        /// </summary>
+        public readonly string Zkouska;
+
+        public PredmetDbModel(Guid id, string code, string name, int kredity, string zkouska)
         {
             Id = id;
             Code = code;

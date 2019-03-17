@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KarolinkaUznani.Services.Au
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KarolinkaUznani.Services.Data", "KarolinkaUznani.Services.Data\KarolinkaUznani.Services.Data.csproj", "{E89CFEBE-F682-451B-BCE0-F832386EBE92}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KarolinkaUznani.Database", "KarolinkaUznani.Database\KarolinkaUznani.Database.csproj", "{E029187D-A0F3-4B9B-9981-BD4DB5150401}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{E89CFEBE-F682-451B-BCE0-F832386EBE92}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E89CFEBE-F682-451B-BCE0-F832386EBE92}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E89CFEBE-F682-451B-BCE0-F832386EBE92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E029187D-A0F3-4B9B-9981-BD4DB5150401}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E029187D-A0F3-4B9B-9981-BD4DB5150401}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E029187D-A0F3-4B9B-9981-BD4DB5150401}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E029187D-A0F3-4B9B-9981-BD4DB5150401}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

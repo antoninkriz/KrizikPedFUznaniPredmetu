@@ -37,7 +37,12 @@ namespace KarolinkaUznani.Services.Data.Domain.Models
         /// </summary>
         public readonly int? YearTo;
 
-        public OborDbModel(Guid id, string code, string name, string specification, int? yearFrom, int? yearTo)
+        /// <summary>
+        /// Form of studium - True = KS / False = PS
+        /// </summary>
+        public readonly bool StudyForm;
+
+        public OborDbModel(Guid id, string code, string name, string specification, int? yearFrom, int? yearTo, bool studyForm)
         {
             Id = id;
             Code = code;
@@ -45,6 +50,7 @@ namespace KarolinkaUznani.Services.Data.Domain.Models
             Specification = specification;
             YearFrom = yearFrom;
             YearTo = yearTo;
+            StudyForm = studyForm;
         }
     }
 }
