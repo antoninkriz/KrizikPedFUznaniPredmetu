@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp2.2</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Content Include="StoredProcedures\Data\sp_SearchDruhyStudia.sql" />
+      <Content Include="StoredProcedures\Data\sp_SearchObory.sql" />
+      <Content Include="StoredProcedures\Data\sp_SearchPredmety.sql" />
+    </ItemGroup>
+
+</Project>
