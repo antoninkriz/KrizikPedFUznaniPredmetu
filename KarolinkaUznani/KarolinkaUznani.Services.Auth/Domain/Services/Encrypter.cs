@@ -13,6 +13,11 @@ namespace KarolinkaUznani.Services.Auth.Domain.Services
         private const int SaltSize = 40;
         
         /// <summary>
+        /// Size of the password in bytes
+        /// </summary>
+        private const int PasswrodSize = 64;
+        
+        /// <summary>
         /// How strong should the encryption be?
         /// </summary>
         private const int DeriveBytesIterationsCount = 10000;
@@ -42,7 +47,7 @@ namespace KarolinkaUznani.Services.Auth.Domain.Services
         {
             var pbkdf2 = new Rfc2898DeriveBytes(value, salt, DeriveBytesIterationsCount);
 
-            return pbkdf2.GetBytes(SaltSize);
+            return pbkdf2.GetBytes(PasswrodSize);
         }
     }
 }

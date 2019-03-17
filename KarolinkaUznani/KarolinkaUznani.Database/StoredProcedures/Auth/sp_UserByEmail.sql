@@ -1,9 +1,9 @@
 DELIMITER $$
 
 
-DROP PROCEDURE IF EXISTS `sp_UserByGuid`$$
+DROP PROCEDURE IF EXISTS `sp_UserByEmail`$$
 CREATE
-  DEFINER =`root`@`localhost` PROCEDURE `sp_UserByGuid`(IN `p_userEmail` VARCHAR(255)) READS SQL DATA
+  DEFINER =`root`@`localhost` PROCEDURE `sp_UserByEmail`(IN `p_userEmail` VARCHAR(255)) READS SQL DATA
   SQL SECURITY INVOKER
 BEGIN
 

@@ -9,17 +9,17 @@ CREATE
 BEGIN
 
 
-  SELECT tPr.`pk_tblPredmety` as 'id',
-         tPr.`sKod`           as 'sKod',
-         tPr.`sNazev`         as 'sNazev',
-         tPr.`nKredity`       as 'nKredity',
-         tPr.`bUkZ`           as 'bUkZ',
-         tPr.`bUkKZ`          as 'bUkKZ',
-         tPr.`bUkZK`          as 'bUkZK',
-         tPr.`bUkKLP`         as 'bUkKLP'
+  SELECT tPr.`pk_tblPredmety` AS 'id',
+         tPr.`sKod`           AS 'sKod',
+         tPr.`sNazev`         AS 'sNazev',
+         tPr.`nKredity`       AS 'nKredity',
+         tPr.`bUkZ`           AS 'bUkZ',
+         tPr.`bUkKZ`          AS 'bUkKZ',
+         tPr.`bUkZK`          AS 'bUkZK',
+         tPr.`bUkKLP`         AS 'bUkKLP'
   FROM tblPredmetyNaObory tPnO
          INNER JOIN tblPredmety tPr ON tPnO.fk_tblPredmety = tPr.pk_tblPredmety
-  WHERE tPnO.`fk_tblPredmety` = `p_oborId`
+  WHERE tPnO.`fk_tblObory` = `p_oborId`
     AND CONCAT(tPr.`sKod`, ' ', tPr.`sNazev`) LIKE CONCAT('%', `p_search`, '%')
   GROUP BY tPr.`pk_tblPredmety`;
 

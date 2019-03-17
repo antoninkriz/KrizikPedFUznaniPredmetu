@@ -8,8 +8,8 @@ CREATE
 BEGIN
 
 
-  SELECT tKa.`pk_tblKatedry`  as 'id',
-         tKa.`sKod`         as 'sKod'
+  SELECT tKa.`pk_tblKatedry` AS 'id',
+         tKa.`sKod`          AS 'sKod'
   FROM `tblKatedry` tKa
   WHERE tKa.`sKod` LIKE CONCAT('%', `p_search`, '%');
 

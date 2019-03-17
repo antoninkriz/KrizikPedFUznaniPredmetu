@@ -48,7 +48,7 @@ namespace KarolinkaUznani.Common.Auth
                 new MailAddress(address);
                 return true;
             }
-            catch (FormatException e)
+            catch (FormatException)
             {
                 return false;
             }

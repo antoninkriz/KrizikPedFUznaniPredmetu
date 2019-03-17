@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using KarolinkaUznani.Common.Exceptions;
 using KarolinkaUznani.Services.Auth.Domain.Services;
 
@@ -65,6 +66,6 @@ namespace KarolinkaUznani.Services.Auth.Domain.Models
         }
 
         public bool ValidatePassword(string password, IEncrypter encrypter)
-            => Password.Equals(encrypter.GetHash(password, Salt));
+            => Password.SequenceEqual(encrypter.GetHash(password, Salt));
     }
 }

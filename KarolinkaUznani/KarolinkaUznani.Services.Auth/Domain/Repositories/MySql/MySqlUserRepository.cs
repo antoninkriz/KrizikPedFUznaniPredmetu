@@ -7,6 +7,7 @@ using MySql.Data.MySqlClient;
 
 namespace KarolinkaUznani.Services.Auth.Domain.Repositories.MySql
 {
+    /// <inheritdoc cref="IUserRepository" />
     /// <summary>
     /// Handling database stuff related to the user
     /// </summary>

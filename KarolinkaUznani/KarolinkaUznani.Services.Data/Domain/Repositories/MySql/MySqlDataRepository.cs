@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
+using System.Data.SqlClient;
 using System.Threading.Tasks;
 using KarolinkaUznani.Common.Database;
 using KarolinkaUznani.Services.Data.Domain.Models;
@@ -7,6 +9,7 @@ using MySql.Data.MySqlClient;
 
 namespace KarolinkaUznani.Services.Data.Domain.Repositories.MySql
 {
+    /// <inheritdoc cref="IDataRepository" />
     /// <summary>
     /// Handling database stuff related to the data
     /// </summary>
@@ -38,7 +41,7 @@ namespace KarolinkaUznani.Services.Data.Domain.Repositories.MySql
                     while (await reader.ReadAsync())
                     {
                         var i = 0;
-                        
+
                         collection.Add(new KatedraDbModel(
                             id: new Guid(await reader.GetFieldValueAsync<byte[]>(i++)),
                             name: await reader.GetFieldValueAsync<string>(i)
@@ -59,7 +62,7 @@ namespace KarolinkaUznani.Services.Data.Domain.Repositories.MySql
         /// <returns></returns>
         public async Task<List<DruhStudiaDbModel>> GetDruhStudiaAsync(Guid katedraId, string searchText)
         {
-            using (var command = Command("sp_SearchKatedry", new List<Param>
+            using (var command = Command("sp_SearchDruhyStudia", new List<Param>
             {
                 new Param("p_search", MySqlDbType.VarChar, 64, searchText),
                 new Param("p_katedraId", MySqlDbType.Binary, 16, katedraId.ToByteArray())
@@ -74,7 +77,7 @@ namespace KarolinkaUznani.Services.Data.Domain.Repositories.MySql
                     while (await reader.ReadAsync())
                     {
                         var i = 0;
-                        
+
                         collection.Add(new DruhStudiaDbModel(
                             id: new Guid(await reader.GetFieldValueAsync<byte[]>(i++)),
                             code: await reader.GetFieldValueAsync<string>(i++),
@@ -113,15 +116,17 @@ namespace KarolinkaUznani.Services.Data.Domain.Repositories.MySql
                     while (await reader.ReadAsync())
                     {
                         var i = 0;
+
+                        var a = new Guid(await reader.GetFieldValueAsync<byte[]>(i++));
+                        var b = await reader.GetFieldValueAsync<string>(i++);
+                        var c = await reader.GetFieldValueAsync<string>(i++);
+                        var d = ConvertFromDbVal<string>(await reader.GetFieldValueAsync<object>(i++));  
+                        var e = ConvertFromDbVal<int?>(await reader.GetFieldValueAsync<object>(i++));
+                        var f = ConvertFromDbVal<int?>(await reader.GetFieldValueAsync<object>(i++));
+                        var g = ConvertFromDbVal<bool>(await reader.GetFieldValueAsync<object>(i));
                         
                         collection.Add(new OborDbModel(
-                            id: new Guid(await reader.GetFieldValueAsync<byte[]>(i++)),
-                            code: await reader.GetFieldValueAsync<string>(i++),
-                            name: await reader.GetFieldValueAsync<string>(i++),
-                            specification: await  reader.GetFieldValueAsync<string>(i++),
-                            yearFrom: await reader.GetFieldValueAsync<int?>(i++),
-                            yearTo: await reader.GetFieldValueAsync<int?>(i++),
-                            studyForm: await reader.GetFieldValueAsync<bool>(i)
+                            a,b,c,d,e,f,g
                         ));
                     }
                 }
@@ -130,6 +135,21 @@ namespace KarolinkaUznani.Services.Data.Domain.Repositories.MySql
             }
         }
 
+        private static T ConvertFromDbVal<T>(object obj)
+        {
+            if (obj == null || obj == DBNull.Value || obj is DBNull)
+                return default;
+
+            var t = typeof(T);
+
+            if (!t.IsGenericType || t.GetGenericTypeDefinition() != typeof(Nullable<>))
+                return (T) Convert.ChangeType(obj, t);
+            
+            t = Nullable.GetUnderlyingType(t);
+
+            return (T) Convert.ChangeType(obj, t);
+        }
+        
         /// <inheritdoc />
         /// <summary>
         /// Get list of Predmet for specified parameters
@@ -139,7 +159,7 @@ namespace KarolinkaUznani.Services.Data.Domain.Repositories.MySql
         /// <returns></returns>
         public async Task<List<PredmetDbModel>> GetPredmetAsync(Guid oborId, string searchText)
         {
-            using (var command = Command("sp_PredmetBySearch", new List<Param>
+            using (var command = Command("sp_SearchPredmety", new List<Param>
             {
                 new Param("p_search", MySqlDbType.VarChar, 64, searchText),
                 new Param("p_oborId", MySqlDbType.Binary, 16, oborId.ToByteArray()),
@@ -154,18 +174,18 @@ namespace KarolinkaUznani.Services.Data.Domain.Repositories.MySql
                     while (await reader.ReadAsync())
                     {
                         var i = 0;
-                        
+
                         collection.Add(new PredmetDbModel(
                             id: new Guid(await reader.GetFieldValueAsync<byte[]>(i++)),
                             code: await reader.GetFieldValueAsync<string>(i++),
                             name: await reader.GetFieldValueAsync<string>(i++),
                             kredity: await reader.GetFieldValueAsync<int>(i++),
                             zkouska: GetZkouska(
-                                await reader.GetFieldValueAsync<bool>(i++),
-                                await reader.GetFieldValueAsync<bool>(i++),
-                                await reader.GetFieldValueAsync<bool>(i++),
-                                await reader.GetFieldValueAsync<bool>(i)
-                                )
+                                ConvertFromDbVal<bool>(await reader.GetFieldValueAsync<object>(i++)),
+                                ConvertFromDbVal<bool>(await reader.GetFieldValueAsync<object>(i++)),
+                                ConvertFromDbVal<bool>(await reader.GetFieldValueAsync<object>(i++)),
+                                ConvertFromDbVal<bool>(await reader.GetFieldValueAsync<object>(i))
+                            )
                         ));
                     }
                 }
@@ -185,7 +205,7 @@ namespace KarolinkaUznani.Services.Data.Domain.Repositories.MySql
         private static string GetZkouska(bool ukZ, bool ukKz, bool ukZk, bool ukKlp)
         {
             var uk = new List<string>();
-            
+
             if (ukZ)
                 uk.Add("Z");
             if (ukKz)

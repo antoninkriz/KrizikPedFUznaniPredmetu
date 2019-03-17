@@ -1,17 +1,17 @@
 DELIMITER $$
 
 
-DROP PROCEDURE IF EXISTS `sp_SearchKatedry`$$
+DROP PROCEDURE IF EXISTS `sp_SearchDruhyStudia`$$
 CREATE
-  DEFINER =`root`@`localhost` PROCEDURE `sp_SearchKatedry`(IN `p_search` VARCHAR(64),
-                                                           IN `p_katedraId` BINARY(16)) READS SQL DATA
+  DEFINER =`root`@`localhost` PROCEDURE `sp_SearchDruhyStudia`(IN `p_search` VARCHAR(64),
+                                                               IN `p_katedraId` BINARY(16)) READS SQL DATA
   SQL SECURITY INVOKER
 BEGIN
 
 
-  SELECT tDS.`pk_tblDruhyStudia` as 'id',
-         tDS.`sZkratka`          as 'sZkratka',
-         tDS.`sNazev`            as 'sNazev'
+  SELECT tDS.`pk_tblDruhyStudia` AS 'id',
+         tDS.`sZkratka`          AS 'sZkratka',
+         tDS.`sNazev`            AS 'sNazev'
   FROM tblPredmetyNaObory tPnO
          INNER JOIN tblPredmety tPr ON tPnO.fk_tblPredmety = tPr.pk_tblPredmety
          INNER JOIN tblObory tOb ON tPnO.fk_tblObory = tOb.pk_tblObory
