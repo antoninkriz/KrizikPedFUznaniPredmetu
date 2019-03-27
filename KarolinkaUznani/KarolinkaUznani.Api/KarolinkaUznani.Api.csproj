@@ -25,6 +25,7 @@
         <Content Include="ClientApp\src\app\credentials\credentials.component.html" />
         <Content Include="ClientApp\src\app\credentials\credentials.component.scss" />
         <Content Include="ClientApp\src\app\credentials\credentials.component.ts" />
+        <Content Include="ClientApp\src\app\credentials\loginRegister.component.scss" />
         <Content Include="ClientApp\src\app\credentials\login\login.component.html" />
         <Content Include="ClientApp\src\app\credentials\login\login.component.ts" />
         <Content Include="ClientApp\src\app\credentials\register\register.component.html" />
@@ -41,6 +42,7 @@
         <Content Include="ClientApp\src\app\_helpers\error.interceptor.ts" />
         <Content Include="ClientApp\src\app\_helpers\jwt.interceptor.ts" />
         <Content Include="ClientApp\src\app\_models\searchResponses.ts" />
+        <Content Include="ClientApp\src\app\_models\templateData.ts" />
         <Content Include="ClientApp\src\app\_models\token.ts" />
         <Content Include="ClientApp\src\app\_models\tokenResponse.ts" />
         <Content Include="ClientApp\src\app\_models\user.ts" />

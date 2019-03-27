@@ -14,6 +14,7 @@ namespace KarolinkaUznani.Services.Auth
 
             await serviceHost.SubscribeToRcp<LoginRequest, LoginResponse>();
             await serviceHost.SubscribeToRcp<RegisterRequest, LoginResponse>();
+            await serviceHost.SubscribeToRcp<UserRequest, UserResponse>();
 
             serviceHost.Build().Run();
         }

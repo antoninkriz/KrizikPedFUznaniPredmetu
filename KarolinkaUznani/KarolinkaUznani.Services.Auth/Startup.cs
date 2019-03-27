@@ -48,6 +48,7 @@ namespace KarolinkaUznani.Services.Auth
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IRequestHandler<LoginRequest, LoginResponse>, RequestLoginHandler>();
             services.AddScoped<IRequestHandler<RegisterRequest, LoginResponse>, RequestRegisterHandler>();
+            services.AddScoped<IRequestHandler<UserRequest, UserResponse>, RequestUserHandler>();
 
             return services.BuildServiceProvider();
         }

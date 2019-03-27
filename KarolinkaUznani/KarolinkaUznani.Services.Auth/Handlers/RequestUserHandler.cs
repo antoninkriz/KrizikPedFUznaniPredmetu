@@ -40,14 +40,14 @@ namespace KarolinkaUznani.Services.Auth.Handlers
                 response.Success = true;
                 response.User = user;
 
-                _logger.LogInformation($"Login: '{request.UserId}' - success");
+                _logger.LogInformation($"User: '{request.UserId}' - success");
             }
             catch (KarolinkaException ex)
             {
                 response.Success = false;
                 response.Message = ex.Code;
 
-                _logger.LogInformation($"Login: '{request.UserId}' - failed - {ex.Code}");
+                _logger.LogInformation($"User: '{request.UserId}' - failed - {ex.Code}");
             }
 
             return response;

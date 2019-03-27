@@ -76,7 +76,7 @@ namespace KarolinkaUznani.Services.Data.Services
 
             var result = await _dataRepository.GetOborAsync(katedraId, druhStudiaId, searchText);
 
-            return result.Select(x => new Obor(x.Id, x.Name, x.Code, x.Specification, x.YearFrom, x.YearTo, x.StudyForm)).ToList();
+            return result.Select(x => new Obor(x.Id, x.Code, x.Name, x.Specification, x.YearFrom, x.YearTo, x.StudyForm)).ToList();
         }
 
         /// <inheritdoc />

@@ -30,7 +30,7 @@ namespace KarolinkaUznani.Api.Controllers
 
         [HttpGet("[action]")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Load()
         {
             var response = await _busClient.RequestAsync<UserRequest, UserResponse>(new UserRequest
             {
@@ -66,8 +66,6 @@ namespace KarolinkaUznani.Api.Controllers
         [HttpPost("[action]")]
         public async Task<IActionResult> Login([FromBody] LoginRequest req)
         {
-            // return Ok(JsonConvert.SerializeObject(new LoginResponse {Expires = 1600000000, Success = true, Token = "MujVlastniToken"}));
-            
             var response = await _busClient.RequestAsync<LoginRequest, LoginResponse>(req);
             var jsonResp = JsonConvert.SerializeObject(response);
 
