@@ -5,9 +5,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Content Include="StoredProcedures\Data\sp_SearchDruhyStudia.sql" />
-      <Content Include="StoredProcedures\Data\sp_SearchObory.sql" />
-      <Content Include="StoredProcedures\Data\sp_SearchPredmety.sql" />
     </ItemGroup>
 
 </Project>
