@@ -120,5 +120,68 @@ namespace KarolinkaUznani.Services.Auth.Domain.Repositories.MySql
                 await command.ExecuteNonQueryAsync();
             }
         }
+
+        /// <inheritdoc />
+        /// <summary>
+        /// Updates an User in the database 
+        /// </summary>
+        /// <param name="user">User model, without password, salt, createdAt</param>
+        /// <returns></returns>
+        public async Task UpdateAsync(UserDbModel user)
+        {
+            using (var command = Command("sp_UserUpdate", new List<Param>
+            {
+                new Param("p_userId", MySqlDbType.Binary, 16, user.Id.ToByteArray()),
+                new Param("p_userCode", MySqlDbType.Int32, null, user.Code),
+                new Param("p_userEmail", MySqlDbType.VarChar, 255, user.Email),
+                new Param("p_userName", MySqlDbType.VarChar, 255, user.Name),
+                new Param("p_userSurname", MySqlDbType.VarChar, 255, user.Surname),
+                new Param("p_userPhone", MySqlDbType.VarChar, 16, user.Phone)
+            }))
+            {
+                await OpenConnectionAsync();
+                await command.ExecuteNonQueryAsync();
+            }
+        }
+
+        /// <inheritdoc />
+        /// <summary>
+        /// Updates users password in the database
+        /// </summary>
+        /// <param name="id">GUID</param>
+        /// <param name="password">Users hashed and salted password</param>
+        /// <param name="salt">Salt for the password</param>
+        /// <returns></returns>
+        public async Task PasswordAsync(Guid id, byte[] password, byte[] salt)
+        {
+            using (var command = Command("sp_UserPassword", new List<Param>
+            {
+                new Param("p_userId", MySqlDbType.Binary, 16, id.ToByteArray()),
+                new Param("p_userPassword", MySqlDbType.Binary, 64, password),
+                new Param("p_userSalt", MySqlDbType.Binary, 40, salt),
+            }))
+            {
+                await OpenConnectionAsync();
+                await command.ExecuteNonQueryAsync();
+            }
+        }
+
+        /// <inheritdoc />
+        /// <summary>
+        /// Deletes an User from the database
+        /// </summary>
+        /// <param name="id">GUID</param>
+        /// <returns></returns>
+        public async Task DeleteAsync(Guid id)
+        {
+            using (var command = Command("sp_UserDelete", new List<Param>
+            {
+                new Param("p_userId", MySqlDbType.Binary, 16, id.ToByteArray())
+            }))
+            {
+                await OpenConnectionAsync();
+                await command.ExecuteNonQueryAsync();
+            }
+        }
     }
 }

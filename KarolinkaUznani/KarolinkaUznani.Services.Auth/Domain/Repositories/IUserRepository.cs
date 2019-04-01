@@ -1,7 +1,5 @@
 using System;
 using System.Threading.Tasks;
-using KarolinkaUznani.Common.Database;
-using KarolinkaUznani.Common.Requests;
 using KarolinkaUznani.Services.Auth.Domain.Models;
 
 namespace KarolinkaUznani.Services.Auth.Domain.Repositories
@@ -31,5 +29,28 @@ namespace KarolinkaUznani.Services.Auth.Domain.Repositories
         /// <param name="user">User model</param>
         /// <returns></returns>
         Task AddAsync(UserDbModel user);
+        
+        /// <summary>
+        /// Updates an User in the database 
+        /// </summary>
+        /// <param name="user">User model, without password, salt, createdAt</param>
+        /// <returns></returns>
+        Task UpdateAsync(UserDbModel user);
+
+        /// <summary>
+        /// Updates users password in the database
+        /// </summary>
+        /// <param name="id">GUID</param>
+        /// <param name="password">Users hashed and salted password</param>
+        /// <param name="salt">Salt for the password</param>
+        /// <returns></returns>
+        Task PasswordAsync(Guid id, byte[] password, byte[] salt);
+
+        /// <summary>
+        /// Deletes an User from the database
+        /// </summary>
+        /// <param name="id">GUID</param>
+        /// <returns></returns>
+        Task DeleteAsync(Guid id);
     }
 }

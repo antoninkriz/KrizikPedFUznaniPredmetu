@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using KarolinkaUznani.Common.Auth.JWT;
 using KarolinkaUznani.Common.Requests.Auth;
+using KarolinkaUznani.Common.Responses;
 using KarolinkaUznani.Common.Responses.Auth;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -71,9 +72,7 @@ namespace KarolinkaUznani.Api.Controllers
 
             _logger.LogInformation($"Login attempted - '{req.Email}' - {(response.Success ? "SUCCESS" : "FAIL")}");
 
-            if (response.Success)
-                return Ok(jsonResp);
-            return Unauthorized(jsonResp);
+            return Ok(jsonResp);
         }
 
         [HttpPost("[action]")]
@@ -84,9 +83,50 @@ namespace KarolinkaUznani.Api.Controllers
 
             _logger.LogInformation($"Register attempted - '{req.Email}' - {(response.Success ? "SUCCESS" : "FAIL")}");
 
-            if (response.Success)
-                return Ok(jsonResp);
-            return Unauthorized(jsonResp);
+            return Ok(jsonResp);
+        }
+
+        [HttpPost("[action]")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<IActionResult> Update([FromBody] UpdateRequest req)
+        {
+            req.UserId = Guid.Parse(User.Identity.Name);
+            var response = await _busClient.RequestAsync<UpdateRequest, BasicResponse>(req);
+            var jsonResp = JsonConvert.SerializeObject(response);
+
+            _logger.LogInformation($"Update attempted - '{User.Identity.Name}' - {(response.Success ? "SUCCESS" : "FAIL")}");
+
+            return Ok(jsonResp);
+        }
+
+        [HttpPost("[action]")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<IActionResult> Password([FromBody] PasswordRequest req)
+        {
+            req.UserId = Guid.Parse(User.Identity.Name);
+            var response = await _busClient.RequestAsync<PasswordRequest, BasicResponse>(req);
+            var jsonResp = JsonConvert.SerializeObject(response);
+
+            _logger.LogInformation($"PasswordChange attempted- '{User.Identity.Name}' - {(response.Success ? "SUCCESS" : "FAIL")}");
+
+            return Ok(jsonResp);
+        }
+
+        [HttpGet("[action]")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<IActionResult> Delete()
+        {
+            var req = new DeleteRequest()
+            {
+                UserId = Guid.Parse(User.Identity.Name)
+            };
+            
+            var response = await _busClient.RequestAsync<DeleteRequest, BasicResponse>(req);
+            var jsonResp = JsonConvert.SerializeObject(response);
+
+            _logger.LogInformation($"Delete attempted- '{User.Identity.Name}' - {(response.Success ? "SUCCESS" : "FAIL")}");
+
+            return Ok(jsonResp);
         }
     }
 }

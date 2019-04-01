@@ -123,5 +123,82 @@ namespace KarolinkaUznani.Services.Auth.Services
 
             return _jwtHandler.Create($"{user.Id}".Replace("-", string.Empty));
         }
+
+        /// <inheritdoc />
+        /// <summary>
+        /// Updates users info
+        /// </summary>
+        /// <param name="id">GUID</param>
+        /// <param name="code">Users university code id</param>
+        /// <param name="email">Users email</param>
+        /// <param name="name">Users name</param>
+        /// <param name="surname">Users surname</param>
+        /// <param name="phone">Users phone number</param>
+        /// <returns></returns>
+        public async Task UpdateAsync(Guid id, int code, string email, string name, string surname, string phone)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+                throw new KarolinkaException(KarolinkaException.ExceptionType.EmptyEmail);
+            if (string.IsNullOrWhiteSpace(name))
+                throw new KarolinkaException(KarolinkaException.ExceptionType.EmptyName);
+            if (string.IsNullOrWhiteSpace(surname))
+                throw new KarolinkaException(KarolinkaException.ExceptionType.EmptySurname);
+            if (string.IsNullOrWhiteSpace(phone))
+                throw new KarolinkaException(KarolinkaException.ExceptionType.EmptyPhone);
+
+            if (!email.IsValidEmail())
+                throw new KarolinkaException(KarolinkaException.ExceptionType.NotEmail);
+           
+            var user = await _userRepository.GetAsync(email);
+            if (user != null && !id.Equals(user.Id))
+                throw new KarolinkaException(KarolinkaException.ExceptionType.EmailAlreadyUsed);
+            
+            user = new UserDbModel(
+                id,
+                code,
+                email,
+                name,
+                surname,
+                phone,
+                null,
+                null,
+                DateTime.UnixEpoch
+            );
+
+            await _userRepository.UpdateAsync(user);
+        }
+
+        /// <inheritdoc />
+        /// <summary>
+        /// Updates users password
+        /// </summary>
+        /// <param name="id">GUID</param>
+        /// <param name="newPassword">New password</param>
+        /// <returns></returns>
+        public async Task PasswordAsync(Guid id, string newPassword)
+        {
+            if (!newPassword.IsValidPassword())
+                throw new KarolinkaException(KarolinkaException.ExceptionType.NotPassword);
+            
+            var salt = _encrypter.GetSalt();
+            var password = _encrypter.GetHash(newPassword, salt);
+
+            await _userRepository.PasswordAsync(id, password, salt);
+        }
+
+        /// <inheritdoc />
+        /// <summary>
+        /// Deletes an user
+        /// </summary>
+        /// <param name="id">GUID</param>
+        /// <returns></returns>
+        public async Task DeleteAsync(Guid id)
+        {
+            var user = await _userRepository.GetAsync(id);
+            if (user == null)
+                throw new KarolinkaException(KarolinkaException.ExceptionType.UserNotExist);
+
+            await _userRepository.DeleteAsync(id);
+        }
     }
 }

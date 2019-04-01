@@ -5,6 +5,7 @@ using KarolinkaUznani.Common.Database;
 using KarolinkaUznani.Common.RabbitMq;
 using KarolinkaUznani.Common.Requests;
 using KarolinkaUznani.Common.Requests.Auth;
+using KarolinkaUznani.Common.Responses;
 using KarolinkaUznani.Common.Responses.Auth;
 using KarolinkaUznani.Services.Auth.Domain.Repositories;
 using KarolinkaUznani.Services.Auth.Domain.Repositories.MySql;
@@ -27,7 +28,6 @@ namespace KarolinkaUznani.Services.Auth
 
         private IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
@@ -49,11 +49,13 @@ namespace KarolinkaUznani.Services.Auth
             services.AddScoped<IRequestHandler<LoginRequest, LoginResponse>, RequestLoginHandler>();
             services.AddScoped<IRequestHandler<RegisterRequest, LoginResponse>, RequestRegisterHandler>();
             services.AddScoped<IRequestHandler<UserRequest, UserResponse>, RequestUserHandler>();
+            services.AddScoped<IRequestHandler<UpdateRequest, BasicResponse>, RequestUpdateHandler>();
+            services.AddScoped<IRequestHandler<PasswordRequest, BasicResponse>, RequestPasswordHandler>();
+            services.AddScoped<IRequestHandler<DeleteRequest, BasicResponse>, RequestDeleteHandler>();
 
             return services.BuildServiceProvider();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())

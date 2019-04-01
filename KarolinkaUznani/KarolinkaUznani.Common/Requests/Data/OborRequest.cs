@@ -2,6 +2,7 @@ using System;
 
 namespace KarolinkaUznani.Common.Requests.Data
 {
+    /// <inheritdoc />
     /// <summary>
     /// Object containing data related to search queries
     /// </summary>

@@ -32,15 +32,23 @@
         <Content Include="ClientApp\src\app\credentials\register\register.component.ts" />
         <Content Include="ClientApp\src\app\home\druhStudia\druhStudia.component.html" />
         <Content Include="ClientApp\src\app\home\druhStudia\druhStudia.component.ts" />
+        <Content Include="ClientApp\src\app\home\home.component.scss" />
         <Content Include="ClientApp\src\app\home\katedra\katedra.component.html" />
         <Content Include="ClientApp\src\app\home\katedra\katedra.component.ts" />
         <Content Include="ClientApp\src\app\home\obor\obor.component.html" />
         <Content Include="ClientApp\src\app\home\obor\obor.component.ts" />
         <Content Include="ClientApp\src\app\home\predmet\predmet.component.html" />
         <Content Include="ClientApp\src\app\home\predmet\predmet.component.ts" />
+        <Content Include="ClientApp\src\app\_controls\button\button.component.html" />
+        <Content Include="ClientApp\src\app\_controls\button\button.component.scss" />
+        <Content Include="ClientApp\src\app\_controls\button\button.component.ts" />
+        <Content Include="ClientApp\src\app\_controls\input\input.component.html" />
+        <Content Include="ClientApp\src\app\_controls\input\input.component.scss" />
+        <Content Include="ClientApp\src\app\_controls\input\input.component.ts" />
         <Content Include="ClientApp\src\app\_guards\auth.guard.ts" />
         <Content Include="ClientApp\src\app\_helpers\error.interceptor.ts" />
         <Content Include="ClientApp\src\app\_helpers\jwt.interceptor.ts" />
+        <Content Include="ClientApp\src\app\_models\basicResponse.ts" />
         <Content Include="ClientApp\src\app\_models\searchResponses.ts" />
         <Content Include="ClientApp\src\app\_models\templateData.ts" />
         <Content Include="ClientApp\src\app\_models\token.ts" />
@@ -52,6 +60,8 @@
         <Content Include="ClientApp\src\typings.d.ts" />
         <None Remove="$(SpaRoot)**" />
         <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+        <None Include="ClientApp\src\app\user\user.component.html" />
+        <None Include="ClientApp\src\colors.scss" />
     </ItemGroup>
 
     <ItemGroup>

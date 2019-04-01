@@ -1,8 +1,9 @@
 namespace KarolinkaUznani.Common.Requests
 {
-    // Marker interface
+    /// <summary>
+    /// Marker interface
+    /// </summary>
     public interface IRequest
     {
-        
     }
 }

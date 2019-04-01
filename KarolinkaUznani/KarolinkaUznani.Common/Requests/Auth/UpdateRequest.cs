@@ -1,11 +1,20 @@
+using System;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+
 namespace KarolinkaUznani.Common.Requests.Auth
 {
     /// <inheritdoc />
     /// <summary>
-    /// Object containing data related to registering a new user
+    /// Object containing data related to updating users data 
     /// </summary>
-    public class RegisterRequest : IRequest
+    public class UpdateRequest : IRequest
     {
+        /// <summary>
+        /// Users GUID
+        /// </summary>
+        [BindNever]
+        public Guid UserId { get; set; }
+        
         /// <summary>
         /// Users university code id
         /// </summary>
@@ -30,10 +39,5 @@ namespace KarolinkaUznani.Common.Requests.Auth
         /// New users phone
         /// </summary>
         public string Phone { get; set; }
-    
-        /// <summary>
-        /// Password that will be hashed and saved
-        /// </summary>
-        public string Password { get; set; }
     }
 }

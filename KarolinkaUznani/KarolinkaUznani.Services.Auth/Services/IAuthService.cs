@@ -36,5 +36,32 @@ namespace KarolinkaUznani.Services.Auth.Services
         /// <param name="password">Users password</param>
         /// <returns></returns>
         Task<JsonWebToken> LoginAsync(string email, string password);
+
+        /// <summary>
+        /// Updates users info
+        /// </summary>
+        /// <param name="id">GUID</param>
+        /// <param name="code">Users university code id</param>
+        /// <param name="email">Users email</param>
+        /// <param name="name">Users name</param>
+        /// <param name="surname">Users surname</param>
+        /// <param name="phone">Users phone number</param>
+        /// <returns></returns>
+        Task UpdateAsync(Guid id, int code, string email, string name, string surname, string phone);
+
+        /// <summary>
+        /// Updates users password
+        /// </summary>
+        /// <param name="id">GUID</param>
+        /// <param name="newPassword">New password</param>
+        /// <returns></returns>
+        Task PasswordAsync(Guid id, string newPassword);
+        
+        /// <summary>
+        /// Delete an user
+        /// </summary>
+        /// <param name="id">GUID</param>
+        /// <returns></returns>
+        Task DeleteAsync(Guid id);
     }
 }

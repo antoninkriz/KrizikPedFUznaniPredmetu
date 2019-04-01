@@ -5,9 +5,9 @@ namespace KarolinkaUznani.Common.Requests.Auth
 {
     /// <inheritdoc />
     /// <summary>
-    /// Object containing data related to requesting data about a user
+    /// Object containing data related to deleting an user
     /// </summary>
-    public class UserRequest : IRequest
+    public class DeleteRequest : IRequest
     {
         /// <summary>
         /// Guid of the user to search for

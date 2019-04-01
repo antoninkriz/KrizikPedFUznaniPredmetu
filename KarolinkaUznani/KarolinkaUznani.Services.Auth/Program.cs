@@ -1,7 +1,9 @@
 ﻿using System.Threading.Tasks;
 using KarolinkaUznani.Common.Requests.Auth;
+using KarolinkaUznani.Common.Responses;
 using KarolinkaUznani.Common.Responses.Auth;
 using KarolinkaUznani.Common.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace KarolinkaUznani.Services.Auth
 {
@@ -15,6 +17,9 @@ namespace KarolinkaUznani.Services.Auth
             await serviceHost.SubscribeToRcp<LoginRequest, LoginResponse>();
             await serviceHost.SubscribeToRcp<RegisterRequest, LoginResponse>();
             await serviceHost.SubscribeToRcp<UserRequest, UserResponse>();
+            await serviceHost.SubscribeToRcp<UpdateRequest, BasicResponse>();
+            await serviceHost.SubscribeToRcp<PasswordRequest, BasicResponse>();
+            await serviceHost.SubscribeToRcp<DeleteRequest, BasicResponse>();
 
             serviceHost.Build().Run();
         }

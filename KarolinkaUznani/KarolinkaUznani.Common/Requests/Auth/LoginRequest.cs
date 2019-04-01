@@ -1,5 +1,6 @@
 namespace KarolinkaUznani.Common.Requests.Auth
 {
+    /// <inheritdoc />
     /// <summary>
     /// Object containing data related to user login
     /// </summary>

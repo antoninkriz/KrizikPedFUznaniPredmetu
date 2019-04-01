@@ -5,14 +5,20 @@ namespace KarolinkaUznani.Common.Requests.Auth
 {
     /// <inheritdoc />
     /// <summary>
-    /// Object containing data related to requesting data about a user
+    /// Object containing data related to changing users password 
     /// </summary>
-    public class UserRequest : IRequest
+    /// 
+    public class PasswordRequest : IRequest
     {
         /// <summary>
-        /// Guid of the user to search for
+        /// Users GUID
         /// </summary>
         [BindNever]
         public Guid UserId { get; set; }
+        
+        /// <summary>
+        /// New password
+        /// </summary>
+        public string Password { get; set; }
     }
 }

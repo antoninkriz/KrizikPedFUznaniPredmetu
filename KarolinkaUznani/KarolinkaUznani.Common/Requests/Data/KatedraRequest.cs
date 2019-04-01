@@ -1,5 +1,6 @@
 namespace KarolinkaUznani.Common.Requests.Data
 {
+    /// <inheritdoc />
     /// <summary>
     /// Object containing data related loading specified Katedra
     /// </summary>
