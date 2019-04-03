@@ -8,6 +8,7 @@ using KarolinkaUznani.Common.Responses;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using RabbitMQ.Client.Exceptions;
 using RawRabbit;
 
 namespace KarolinkaUznani.Common.Services
@@ -58,10 +59,23 @@ namespace KarolinkaUznani.Common.Services
                 _webHost = webHost;
             }
 
-            public BusBuilder UseRabbitMq()
+            public async Task<BusBuilder> UseRabbitMq()
             {
-                _bus = (IBusClient) _webHost.Services.GetService(typeof(IBusClient));
-
+                const int retries = 10;
+                const int timeout = 5000;
+                for (var i = 0; i < retries; i ++) {
+                    try
+                    {
+                        _bus = (IBusClient) _webHost.Services.GetService(typeof(IBusClient));
+                        break;
+                    }
+                    catch (BrokerUnreachableException e)
+                    {
+                        Console.WriteLine($"Waiting for RabbitMq server - {i + 1}/{retries} - waiting for {timeout}ms");
+                        await Task.Delay(timeout);
+                    }
+                }
+            
                 return new BusBuilder(_webHost, _bus);
             }
 

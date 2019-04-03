@@ -29,7 +29,6 @@ namespace KarolinkaUznani.Api
             services.AddRabbitMq(Configuration);
 
             // In production, the Angular files will be served from this directory
-            services.AddSpaPrerenderer();
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
         }
 
@@ -68,17 +67,6 @@ namespace KarolinkaUznani.Api
                 if (env.IsDevelopment())
                 {
                     spa.UseAngularCliServer(npmScript: "start");
-                }
-                else
-                {
-                    spa.UseSpaPrerendering(options =>
-                    {
-                        options.BootModulePath = $"{spa.Options.SourcePath}/dist-server/main.bundle.js";
-                        options.BootModuleBuilder = env.IsDevelopment()
-                            ? new AngularCliBuilder(npmScript: "build:ssr:en")
-                            : null;
-                        options.ExcludeUrls = new[] { "/sockjs-node" };
-                    });
                 }
             });
         }

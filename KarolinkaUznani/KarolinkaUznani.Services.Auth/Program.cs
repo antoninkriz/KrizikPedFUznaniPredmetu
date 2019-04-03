@@ -11,7 +11,7 @@ namespace KarolinkaUznani.Services.Auth
     {
         public static async Task Main(string[] args)
         {
-            var serviceHost = ServiceHost.Create<Startup>(args)
+            var serviceHost = await ServiceHost.Create<Startup>(args)
                 .UseRabbitMq();
 
             await serviceHost.SubscribeToRcp<LoginRequest, LoginResponse>();

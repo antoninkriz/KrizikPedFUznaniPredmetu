@@ -9,7 +9,7 @@ namespace KarolinkaUznani.Services.Data
     {
         public static async Task Main(string[] args)
         {
-            var serviceHost = ServiceHost.Create<Startup>(args)
+            var serviceHost = await ServiceHost.Create<Startup>(args)
                 .UseRabbitMq();
 
             await serviceHost.SubscribeToRcp<KatedraRequest, KatedraResponse>();

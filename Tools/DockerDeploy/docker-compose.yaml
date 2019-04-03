@@ -1,0 +1,99 @@
+version: "3"
+
+services:
+  start-dependencies:
+    image: dadarek/wait-for-dependencies
+    depends_on:
+      - mysql
+      - rabbitmq
+      - nginx
+    command: rabbitmq:5672
+
+  api:
+    build:
+      context: .
+      dockerfile: files/Dockerfile_Api
+    container_name: api
+    hostname: api
+    links:
+      - rabbitmq
+      - mysql
+      - nginx
+    depends_on:
+      - rabbitmq
+      - mysql
+    ports:
+      - '5000:5000'
+
+  service-auth:
+    build:
+      context: .
+      dockerfile: files/Dockerfile_Services-Auth
+    container_name: service-auth
+    hostname: service-auth
+    links:
+      - rabbitmq
+      - mysql
+    depends_on:
+      - rabbitmq
+      - mysql
+    ports:
+      - '5050:5050'
+
+  service-data:
+    build:
+      context: .
+      dockerfile: files/Dockerfile_Services-Data
+    container_name: service-data
+    hostname: service-data
+    links:
+      - rabbitmq
+      - mysql
+    depends_on:
+      - rabbitmq
+      - mysql
+    ports:
+      - '5051:5051'
+  
+  nginx:
+    build:
+      context: .
+      dockerfile: files/Dockerfile_Nginx
+    container_name: nginx
+    hostname: nginx
+    ports:
+      - '8080:80'
+      - '8081:5000'
+
+  rabbitmq:
+    build:
+      context: .
+      dockerfile: files/Dockerfile_RabbitMq
+    container_name: rabbitmq
+    hostname: rabbitmq
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    expose:
+      - '5672'
+    healthcheck:
+      test: "curl -f http://localhost:15672"
+      interval: 10s
+      timeout: 30s
+      retries: 10
+
+  mysql:
+    image: mysql
+    container_name: mysql
+    hostname: mysql
+    volumes:
+      - ./data/db:/var/lib/mysql
+    ports:
+      - '30006:3306'
+    expose:
+      - '30006'
+    environment:
+      MYSQL_ROOT_PASSWORD: Asdf.1234
+      MYSQL_DATABASE: KarolinkaDb
+      MYSQL_USER: KarolinkaDb
+      MYSQL_PASSWORD: Asdf.1234

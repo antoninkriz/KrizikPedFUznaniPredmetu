@@ -42,6 +42,7 @@ druhy = {
     }
 }
 
+
 idObory = 1
 for d in druhy:
     for dTyp in range(len(druhy[d]['data'])):
@@ -143,7 +144,8 @@ for o in obory:
             uid = katedry[p['katedra']]
             p['katedra'] = uid
 
-out = 'INSERT INTO tblDruhyStudia VALUES '
+out = 'SET FOREIGN_KEY_CHECKS=0;\n'
+out += 'INSERT INTO tblDruhyStudia VALUES\n'
 for d in druhy:
     out += '({}, {}, {}),\n'.format(
         'UNHEX("' + str(druhy[d]['id']).replace('-', '') + '")' if USE_UUID else str(druhy[d]['id']),
@@ -151,7 +153,7 @@ for d in druhy:
         '"' + druhy[d]['nazev'] + '"')
 out = out[:-2] + ';\n'
 
-out += 'INSERT INTO tblObory VALUES '
+out += 'INSERT INTO tblObory VALUES\n'
 for o in obory:
     out += '({}, {}, {}, {}, {}, {}, {}, {}),\n'.format(
         'UNHEX("' + str(o['id']).replace('-', '') + '")' if USE_UUID else str(o['id']),
@@ -165,14 +167,14 @@ for o in obory:
         o['formaStudia'])
 out = out[:-2] + ';\n'
 
-out += "INSERT INTO tblKatedry VALUES "
+out += "INSERT INTO tblKatedry VALUES\n"
 for k in katedry:
     out += '({}, {}),\n'.format(
         'UNHEX("' + str(katedry[k]).replace('-', '') + '")' if USE_UUID else str(katedry[k]),
         '"' + k + '"')
 out = out[:-2] + ';\n'
 
-out += 'INSERT INTO tblPredmety VALUES '
+out += 'INSERT INTO tblPredmety VALUES\n'
 for pr in predmety:
     p = predmety[pr]['predmet']
     out += '({}, {}, {}, {}, {}, {}, {}, {}, {}),\n'.format(
@@ -187,7 +189,7 @@ for pr in predmety:
         1 if p['ukKLP'] else 0)
 out = out[:-2] + ';\n'
 
-out += 'INSERT INTO tblPredmetyNaObory VALUES '
+out += 'INSERT INTO tblPredmetyNaObory VALUES\n'
 for o in obory:
     for pr in o['predmety']:
         out += '({}, {}),\n'.format(
@@ -195,4 +197,5 @@ for o in obory:
             'UNHEX("' + str(predmety[pr['kod']]['predmet']['id']).replace('-', '') + '")' if USE_UUID else str(predmety[pr['kod']]['predmet']['id']))
 out = out[:-2] + ';\n'
 
+out = 'SET FOREIGN_KEY_CHECKS=1;'
 print(out)

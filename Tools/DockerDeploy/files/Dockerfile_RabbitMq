@@ -1,0 +1,10 @@
+FROM rabbitmq:3.6.5-management
+
+RUN mv /etc/apt/sources.list.d /etc/apt/BACKUP-sources.list.d
+RUN mv /etc/apt/sources.list /etc/apt/BACKUP-sources.list
+RUN echo deb http://deb.debian.org/debian jessie main > /etc/apt/sources.list
+RUN echo $(apt-get -qqy update && apt-get -qqy --no-install-recommends install apt-transport-https && apt-get -qqy update && apt-get -qqy --no-install-recommends install curl)
+RUN mv /etc/apt/BACKUP-sources.list.d /etc/apt/sources.list.d
+RUN mv /etc/apt/BACKUP-sources.list /etc/apt/sources.list
+
+EXPOSE 5672 15672
