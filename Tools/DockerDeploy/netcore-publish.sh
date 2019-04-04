@@ -8,10 +8,10 @@ echo "---PREPARE---"
 cd $home
 rm -rf ./bin
 sudo rm -rf ./data
-#rm -rf ./.config
-#rm -rf ./.dotnet
-#rm -rf ./.local
-#rm -rf ./.npm
+rm -rf ./.config
+rm -rf ./.dotnet
+rm -rf ./.local
+rm -rf ./.npm
 mkdir ./bin
 mkdir ./data
 mkdir ./data/db
@@ -30,7 +30,7 @@ dotnet publish ./KarolinkaUznani.Services.Data -c Release -o ../../Tools/DockerD
 echo "---DATABASE---"
 cd $HOME
 cd ../KarolinkaToSQL
-####################python3 main.py > ../../Database/Data.sql
+python3 main.py > ../../Database/Data.sql
 cd $home
 cd ../../KarolinkaUznani/KarolinkaUznani.Database/StoredProcedures
 rm ../../../Database/Procedures.sql;
@@ -46,15 +46,10 @@ echo "---DOCKER---"
 cd $HOME
 docker-compose up --detach --build
 
-#echo "---DATA---"
-#mysql -hlocalhost -P 30006 -uroot -pAsdf.1234 KarolinkaDb < ./data/dbinit/Schema.sql
-#mysql -hlocalhost -O 30006 -uroot -pAsdf.1234 KarolinkaDb < ./data/dbinit/User.sql
-#mysql -hlocalhost -P 30006 -uroot -pAsdf.1234 KarolinkaDb < ./data/dbinit/Procedures.sql
-#mysql -hlocalhost -P 30006 -uroot -pAsdf.1234 KarolinkaDb < ./data/dbinit/Data.sql
-
 echo "---CLEANUP---"
-#rm -rf ./.config
-#rm -rf ./.dotnet
-#rm -rf ./.local
-#rm -rf ./.npm
-#rm -rf ./.nuget
+rm -rf ./.config
+rm -rf ./.dotnet
+rm -rf ./.local
+rm -rf ./.npm
+rm -rf ./.nuget
+

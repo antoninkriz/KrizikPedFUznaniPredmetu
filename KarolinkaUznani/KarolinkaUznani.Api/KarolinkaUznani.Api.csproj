@@ -58,6 +58,7 @@
         <Content Include="ClientApp\src\app\_models\userResponse.ts" />
         <Content Include="ClientApp\src\app\_services\authentication.service.ts" />
         <Content Include="ClientApp\src\app\_services\user.service.ts" />
+        <Content Include="ClientApp\src\colors.scss" />
         <Content Include="ClientApp\src\typings.d.ts" />
         <None Remove="$(SpaRoot)**" />
         <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
