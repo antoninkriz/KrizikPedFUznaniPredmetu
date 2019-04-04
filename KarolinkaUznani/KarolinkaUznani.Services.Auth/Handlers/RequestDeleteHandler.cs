@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using KarolinkaUznani.Common.Exceptions;
 using KarolinkaUznani.Common.Requests;
@@ -47,7 +48,16 @@ namespace KarolinkaUznani.Services.Auth.Handlers
                 response.Success = false;
                 response.Message = ex.Message;
 
-                _logger.LogInformation($"Delete: '{request.UserId}' - failed - {ex.Code}");
+                _logger.LogError($"Delete: '{request.UserId}' - failed - {ex.Code}");
+            }
+            catch (Exception)
+            {
+                var e = new KarolinkaException(KarolinkaException.ExceptionType.UnknownException);
+                
+                response.Success = false;
+                response.Message = e.Message;
+
+                _logger.LogError($"Delete: '{request.UserId}' - failed - {e.Code}");
             }
 
             return response;

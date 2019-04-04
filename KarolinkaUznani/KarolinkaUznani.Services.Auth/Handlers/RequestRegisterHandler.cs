@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using KarolinkaUznani.Common.Exceptions;
 using KarolinkaUznani.Common.Requests;
@@ -35,7 +36,8 @@ namespace KarolinkaUznani.Services.Auth.Handlers
 
             try
             {
-                var token = await _authService.RegisterAsync(request.Code, request.Email, request.Password, request.Name, request.Surname, request.Phone);
+                var token = await _authService.RegisterAsync(request.Code, request.Email, request.Password,
+                    request.Name, request.Surname, request.Phone);
 
                 response.Success = true;
                 response.Token = token.Token;
@@ -48,7 +50,16 @@ namespace KarolinkaUznani.Services.Auth.Handlers
                 response.Success = false;
                 response.Message = ex.Message;
 
-                _logger.LogInformation($"Registration: '{request.Email}' - failed - {ex.Code}");
+                _logger.LogError($"Registration: '{request.Email}' - failed - {ex.Code}");
+            }
+            catch (Exception)
+            {
+                var e = new KarolinkaException(KarolinkaException.ExceptionType.UnknownException);
+                
+                response.Success = false;
+                response.Message = e.Message;
+
+                _logger.LogError($"Registration: '{request.Email}' - failed - {e.Code}");
             }
 
             return response;

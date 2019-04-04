@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using KarolinkaUznani.Common.Exceptions;
@@ -48,7 +49,15 @@ namespace KarolinkaUznani.Services.Data.Handlers
                 response.Success = true;
                 response.DruhyStudia = new List<DruhStudia>();
 
-                _logger.LogInformation($"DruhStudia: '{request.KatedraId}', '{request.SearchText}' - failed - {ex.Code}");
+                _logger.LogError($"DruhStudia: '{request.KatedraId}', '{request.SearchText}' - failed - {ex.Code}");
+            }
+            catch (Exception)
+            {
+                var e = new KarolinkaException(KarolinkaException.ExceptionType.UnknownException);
+                
+                response.Success = false;
+
+                _logger.LogError($"DruhStudia: '{request.KatedraId}', '{request.SearchText}' - failed - {e.Code}");
             }
 
             return response;

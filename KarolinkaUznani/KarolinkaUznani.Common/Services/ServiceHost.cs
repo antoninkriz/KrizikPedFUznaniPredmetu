@@ -69,7 +69,7 @@ namespace KarolinkaUznani.Common.Services
                         _bus = (IBusClient) _webHost.Services.GetService(typeof(IBusClient));
                         break;
                     }
-                    catch (BrokerUnreachableException e)
+                    catch (BrokerUnreachableException)
                     {
                         Console.WriteLine($"Waiting for RabbitMq server - {i + 1}/{retries} - waiting for {timeout}ms");
                         await Task.Delay(timeout);

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using KarolinkaUznani.Common.Exceptions;
@@ -45,7 +46,15 @@ namespace KarolinkaUznani.Services.Data.Handlers
                 response.Success = true;
                 response.Obory = new List<Obor>();
 
-                _logger.LogInformation($"Obor: '{request.KatedraId}', '{request.DruhStudiaId}', '{request.SearchText}' - failed - {ex.Code}");
+                _logger.LogError($"Obor: '{request.KatedraId}', '{request.DruhStudiaId}', '{request.SearchText}' - failed - {ex.Code}");
+            }
+            catch (Exception)
+            {
+                var e = new KarolinkaException(KarolinkaException.ExceptionType.UnknownException);
+                
+                response.Success = false;
+
+                _logger.LogError($"Obor: '{request.KatedraId}', '{request.DruhStudiaId}', '{request.SearchText}' - failed - {e.Code}");
             }
 
             return response;

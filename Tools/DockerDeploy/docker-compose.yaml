@@ -6,7 +6,7 @@ services:
     depends_on:
       - mysql
       - rabbitmq
-      - nginx
+      - nginx-proxy
     command: rabbitmq:5672
 
   api:
@@ -18,12 +18,13 @@ services:
     links:
       - rabbitmq
       - mysql
-      - nginx
     depends_on:
       - rabbitmq
       - mysql
     ports:
       - '5000:5000'
+    environment:
+      - VIRTUAL_HOST=api.local
 
   service-auth:
     build:
@@ -55,16 +56,13 @@ services:
     ports:
       - '5051:5051'
   
-  nginx:
-    build:
-      context: .
-      dockerfile: files/Dockerfile_Nginx
-    container_name: nginx
-    hostname: nginx
+  nginx-proxy:
+    image: jwilder/nginx-proxy
     ports:
-      - '8080:80'
-      - '8081:5000'
-
+      - "8080:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+  
   rabbitmq:
     build:
       context: .
@@ -88,6 +86,9 @@ services:
     hostname: mysql
     volumes:
       - ./data/db:/var/lib/mysql
+      - ./data/dbinit/Schema.sql:/docker-entrypoint-initdb.d/0_Schema.sql
+      - ./data/dbinit/Procedures.sql:/docker-entrypoint-initdb.d/1_Procedures.sql
+      - ./data/dbinit/Data.sql:/docker-entrypoint-initdb.d/2_Data.sql
     ports:
       - '30006:3306'
     expose:

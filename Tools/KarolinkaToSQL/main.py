@@ -197,5 +197,5 @@ for o in obory:
             'UNHEX("' + str(predmety[pr['kod']]['predmet']['id']).replace('-', '') + '")' if USE_UUID else str(predmety[pr['kod']]['predmet']['id']))
 out = out[:-2] + ';\n'
 
-out = 'SET FOREIGN_KEY_CHECKS=1;'
+out += 'SET FOREIGN_KEY_CHECKS=1;'
 print(out)

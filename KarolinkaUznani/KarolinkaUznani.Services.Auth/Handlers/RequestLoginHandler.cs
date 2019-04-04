@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using KarolinkaUznani.Common.Exceptions;
 using KarolinkaUznani.Common.Requests;
@@ -48,7 +49,16 @@ namespace KarolinkaUznani.Services.Auth.Handlers
                 response.Success = false;
                 response.Message = ex.Message;
 
-                _logger.LogInformation($"Login: '{request.Email}' - failed - {ex.Code}");
+                _logger.LogError($"Login: '{request.Email}' - failed - {ex.Code}");
+            }
+            catch (Exception)
+            {
+                var e = new KarolinkaException(KarolinkaException.ExceptionType.UnknownException);
+                
+                response.Success = false;
+                response.Message = e.Message;
+
+                _logger.LogError($"Login: '{request.Email}' - failed - {e.Code}");
             }
 
             return response;
