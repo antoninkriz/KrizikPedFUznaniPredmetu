@@ -85,6 +85,7 @@ services:
     container_name: mysql
     hostname: mysql
     volumes:
+      - ./mysql.cnf:/etc/mysql/conf.d/custom.cnf
       - ./data/db:/var/lib/mysql
       - ./data/dbinit/Schema.sql:/docker-entrypoint-initdb.d/0_Schema.sql
       - ./data/dbinit/Procedures.sql:/docker-entrypoint-initdb.d/1_Procedures.sql

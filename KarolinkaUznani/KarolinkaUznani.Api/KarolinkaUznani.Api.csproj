@@ -40,6 +40,7 @@
         <Content Include="ClientApp\src\app\home\obor\obor.component.ts" />
         <Content Include="ClientApp\src\app\home\predmet\predmet.component.html" />
         <Content Include="ClientApp\src\app\home\predmet\predmet.component.ts" />
+        <Content Include="ClientApp\src\app\user\user.component.html" />
         <Content Include="ClientApp\src\app\_controls\button\button.component.html" />
         <Content Include="ClientApp\src\app\_controls\button\button.component.scss" />
         <Content Include="ClientApp\src\app\_controls\button\button.component.ts" />
