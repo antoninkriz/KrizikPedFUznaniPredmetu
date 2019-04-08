@@ -30,7 +30,7 @@ dotnet publish ./KarolinkaUznani.Services.Data -c Release -o ../../Tools/DockerD
 echo "---DATABASE---"
 cd $HOME
 cd ../KarolinkaToSQL
-python3 main.py > ../../Database/Data.sql
+######python3 main.py > ../../Database/Data.sql
 cd $home
 cd ../../KarolinkaUznani/KarolinkaUznani.Database/StoredProcedures
 rm ../../../Database/Procedures.sql;
