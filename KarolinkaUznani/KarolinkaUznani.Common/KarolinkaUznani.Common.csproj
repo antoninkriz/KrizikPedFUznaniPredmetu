@@ -9,6 +9,7 @@
       <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
       <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="2.2.0" />
       <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.0" />
       <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="2.2.0" />
       <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.2.0" />
       <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.2.0" />
@@ -24,11 +25,4 @@
       <PackageReference Include="RawRabbit.Operations.Respond" Version="2.0.0-rc5" />
       <PackageReference Include="RawRabbit.Operations.Subscribe" Version="2.0.0-rc5" />
     </ItemGroup>
-
-    <ItemGroup>
-      <Reference Include="Microsoft.AspNetCore.Mvc.Core, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
-        <HintPath>..\..\..\..\.nuget\packages\microsoft.aspnetcore.mvc.core\2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Mvc.Core.dll</HintPath>
-      </Reference>
-    </ItemGroup>
-
 </Project>
