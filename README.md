@@ -41,32 +41,31 @@ Whole project can be divided into following parts:
   - *Database/\*.sql* - SQL scripts to create and seed the database from
   - *KarolinkaUznani.Database* - contains only stored procedures
 - **Tools**
-  - *DockerDeploy* - script for one click deployment of whole project
-  - *KarolinkaToSQL* - script parsing Karolinka into one big SQL insert
+  - *DockerDeploy* - script for one-click deployment of the whole project
+  - *KarolinkaToSQL* - script parsing Karolinka into one huge SQL insert
 
 ### Choice of technologies
 #### General
 - *Docker* - for simple project deployment across other systems
-- *RabbitMQ* - messaging queue for communication between Api and Services
-- *MySQL* - platfrom on which is the whole database based around
+- *RabbitMQ* - messaging queue for communication between API and Services
+- *MySQL* - platform on which is the whole database based around
 ##### [Docker](https://github.com/docker/compose)
-Great tool to eliminate "it works on my machine" phrase. Simple to setup with docker-compose and sounds great as a buzzword.
+A great tool to eliminate "it works on my machine" phrase. Simple to setup with docker-compose and sounds great as a buzzword.
 ##### [RabbitMQ](https://github.com/rabbitmq)
-Since RabbitMQ is the most used sollution of its type, combined together with [RawRabbit](https://github.com/pardahlman/RawRabbit) (.Net framework for communication with RabbitMQ server) and since it's also used at my workplace, the choice was simple.
+Since RabbitMQ is the most used solution of its type, combined with [RawRabbit](https://github.com/pardahlman/RawRabbit) (.Net framework for communication with RabbitMQ server) and since it's also used at my workplace, the choice was simple.
 ##### [MySQL](https://github.com/mysql)
-To make everyting sound even more cool my first choice was MongoDB, but since relational database is a better choice for this project, I simply sticked to MySQL which I already have more experience with. But the whole structure of this project takes in mind possibile usage of other types of databases.
+To make everything sound even cooler my first choice was MongoDB, but since the relational database is a better choice for this project, I stuck to MySQL which I already have more experience with. However, the whole structure of this project takes in mind possible usage of other types of databases.
 #### Back-End
 - *C# DotNet Core* - framework the whole project is based on
 ##### [C# DotNet Core](https://github.com/Microsoft/dotnet)
-With my love to modern C#, its usage at my workplace, simple one-click creation of SPA (Single Page Application) web project and already solid amount of experience, choice was simple.
+With my love for modern C#, its usage at my workplace, simple one-click creation of SPA (Single Page Application) web project and an already solid amount of experience, the choice was simple.
 #### Front-End
 - *Angular 7* - front-end TypeScript based web framework
 - *SCSS* - CSS extension language
 ##### [Angular 7](https://github.com/angular/angular)
-With already some experience with React I wanted to try something new, its also used at my workplace and with it's popularity in other job listings it was a simple choice over VueJS. [TypeScript](https://github.com/Microsoft/TypeScript)s 
+With already some experience with React, I wanted to try something new, its also used at my workplace and with its popularity in other job listings, it was a simple choice over VueJS. [TypeScript](https://github.com/Microsoft/TypeScript)s 
 ##### [SCSS](https://github.com/sass])
-Pure CSS makes me ~~sucidal~~ unhapy to work with, especially on bigger projects so [LESS](https://github.com/less) or SCSS was an obvious choice. For my purposes, both would do the job just fine, but SCSS was easier for me to integrate with Angualr .
+Pure CSS makes me ~~sucidal~~ unhappy to work with, especially on bigger projects, so [LESS](https://github.com/less) or SCSS was an obvious choice. For my purposes, both would do the job just fine, but SCSS was easier for me to integrate with Angular.
 #### Tools
 ##### [Python 3](https://github.com/python/)
-With solid amount of libraries, Python was the perfect choice for something like a script parsing HTML from a website.
-
+With a solid amount of libraries, Python was the perfect choice for something like a script parsing HTML from a website.
